@@ -1,7 +1,6 @@
 #! /usr/bin/python2.7
 # encoding=utf8
 import sys
-from collections import OrderedDict
 
 archivo = sys.argv[1]
 algoritmo = sys.argv[2]
