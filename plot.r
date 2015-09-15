@@ -1,0 +1,6 @@
+#install.packages("ggplot2")
+library("ggplot2")
+log <- read.csv("./log.csv")
+png("plot.png")
+ggplot(data = log, aes(x=cache, y=miss)) + geom_line(aes(colour=algoritmo))
+dev.off()
