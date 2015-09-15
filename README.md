@@ -11,3 +11,4 @@ Los algoritmos disponibles son LRU, OPTIMO, y CLOCK.
 
 > sudo apt-get install r-base
 > install.packages("ggplot2")
+> Rscript plot.r
