@@ -8,30 +8,31 @@ algoritmo = sys.argv[2]
 n = int(sys.argv[3])
 
 def LRU(wlf,n):
-	misses = 0
-	hits = 0
-	total = 0
-	cache = {}
-	print 'Algoritmo LRU con cache de tamano'+ str(n)
-	with open(wlf) as f:
-		for line in f:
-			if (line in cache):  # HIT
-				del cache[line]
-				cache[line] = ''
-				hits = hits + 1
-			else: # MISS
-				misses = misses + 1
-				cache[line] = ''
-				if len(cache) > n :
-					cache.popitem()
-	total = hits + misses
-	f.close()
-	print "Resultados: "
-	print "Miss rate: ", '              '+str(round((float(misses*100)/(total)),3))+'%'
-	print 'Miss rate (warm cache): ', ' '+str(round((float(misses*100)/(total-n)),3))+'%'
-	with open("log.csv", "a") as output:
-		output.write('LRU,'+str(misses)+','+str(n)+'\n')
-	output.close()
+    misses = 0
+    hits = 0
+    total = 0
+    cache = collections.OrderedDict()
+    print 'Algoritmo LRU con cache de tamano '+ str(n)
+    with open(wlf) as f:
+        for line in f:
+            if (line in cache):  # HIT
+                del cache[line]
+                # cache.pop(line)
+                cache[line] = ''
+                hits += 1
+            else: # MISS
+                misses += 1
+                if len(cache) == n :
+                    cache.popitem(last=False)
+                cache[line] = ''
+    total = hits + misses
+    f.close()
+    print "Resultados: "
+    print "Miss rate: ", '              '+str(round((float(misses*100)/(total)),3))+'%'
+    print 'Miss rate (warm cache): ', ' '+str(round((float(misses*100)/(total-n)),3))+'%'
+    with open("log.csv", "a") as output:
+        output.write('LRU,'+str(misses)+','+str(n)+'\n')
+    output.close()
 
 
 
